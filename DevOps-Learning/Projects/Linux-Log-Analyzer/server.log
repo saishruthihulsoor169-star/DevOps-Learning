@@ -1,0 +1,9 @@
+INFO Server Started
+INFO User Login
+ERROR Database Connection Failed
+INFO Request Received
+ERROR Disk Full
+WARNING CPU Usage High
+INFO Backup Completed
+ERROR Authentication Failed
+INFO Shutdown Complete
