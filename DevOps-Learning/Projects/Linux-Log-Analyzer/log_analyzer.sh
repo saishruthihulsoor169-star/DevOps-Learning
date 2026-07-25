@@ -1,28 +1,43 @@
 #!/bin/bash
 
-LOGFILE="server.log"
+LOG_FILE="server.log"
 
-echo "========== Linux Log Analyzer =========="
+if [ ! -f "$LOG_FILE" ]
+then
+    echo "Log file not found!"
+    exit 1
+fi
+
+ERROR_COUNT=$(grep -c "ERROR" "$LOG_FILE")
+WARNING_COUNT=$(grep -c "WARNING" "$LOG_FILE")
+INFO_COUNT=$(grep -c "INFO" "$LOG_FILE")
+TOTAL_LINES=$(wc -l < "$LOG_FILE")
+
+{
+echo "========== SERVER REPORT =========="
+echo
+echo "Date & Time:"
+date
 
 echo
-echo "Total Lines:"
-wc -l < "$LOGFILE"
-
-echo
-echo "Error Count:"
-grep -c "ERROR" "$LOGFILE"
-
-echo
-echo "Warning Count:"
-grep -c "WARNING" "$LOGFILE"
-
-echo
-echo "Info Count:"
-grep -c "INFO" "$LOGFILE"
+echo "Total Lines : $TOTAL_LINES"
+echo "INFO         : $INFO_COUNT"
+echo "WARNING      : $WARNING_COUNT"
+echo "ERROR        : $ERROR_COUNT"
 
 echo
 echo "Errors Found:"
-grep "ERROR" "$LOGFILE"
+grep "ERROR" "$LOG_FILE"
 
 echo
-echo "Analysis Completed."
+
+if [ "$ERROR_COUNT" -eq 0 ]
+then
+    echo "Status : Server Healthy"
+else
+    echo "Status : Server Needs Attention"
+fi
+
+echo
+echo "Report Generated Successfully."
+} | tee report.txt

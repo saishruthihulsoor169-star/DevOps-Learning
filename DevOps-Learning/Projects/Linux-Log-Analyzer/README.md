@@ -2,13 +2,18 @@
 
 A beginner-friendly Bash project that analyzes a Linux server log file.
 
+
 ## Features
 
-- Count total log entries
-- Count ERROR messages
-- Count WARNING messages
+- Analyze Linux log files
 - Count INFO messages
-- Display all ERROR logs
+- Count WARNING messages
+- Count ERROR messages
+- Generate server report
+- Save report automatically
+- Display current date and time
+- Determine server health
+- Validate log file existence
 
 ## Technologies
 
