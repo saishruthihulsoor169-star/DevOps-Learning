@@ -2,42 +2,64 @@
 
 LOG_FILE="server.log"
 
-if [ ! -f "$LOG_FILE" ]
-then
-    echo "Log file not found!"
-    exit 1
-fi
+show_header() {
+    echo "========== SERVER REPORT =========="
+    echo
+}
 
-ERROR_COUNT=$(grep -c "ERROR" "$LOG_FILE")
-WARNING_COUNT=$(grep -c "WARNING" "$LOG_FILE")
-INFO_COUNT=$(grep -c "INFO" "$LOG_FILE")
-TOTAL_LINES=$(wc -l < "$LOG_FILE")
+show_date() {
+    echo "Date & Time:"
+    date
+    echo
+}
+
+read_log_file() {
+    if [ ! -f "$LOG_FILE" ]
+    then
+        echo "Log file not found!"
+        exit 1
+    fi
+
+    TOTAL_LINES=$(wc -l < "$LOG_FILE")
+    echo "Total Lines : $TOTAL_LINES"
+    echo
+}
+
+count_info() {
+    INFO_COUNT=$(grep -c "INFO" "$LOG_FILE")
+    echo "INFO : $INFO_COUNT"
+}
+
+count_warning() {
+    WARNING_COUNT=$(grep -c "WARNING" "$LOG_FILE")
+    echo "WARNING : $WARNING_COUNT"
+}
+
+count_errors() {
+    ERROR_COUNT=$(grep -c "ERROR" "$LOG_FILE")
+    echo "ERROR : $ERROR_COUNT"
+
+    echo
+    echo "Errors Found:"
+    grep "ERROR" "$LOG_FILE"
+    echo
+}
+
+server_status() {
+    if [ "$ERROR_COUNT" -eq 0 ]
+    then
+        echo "Status : Server Healthy"
+    else
+        echo "Status : Server Needs Attention"
+    fi
+}
 
 {
-echo "========== SERVER REPORT =========="
-echo
-echo "Date & Time:"
-date
-
-echo
-echo "Total Lines : $TOTAL_LINES"
-echo "INFO         : $INFO_COUNT"
-echo "WARNING      : $WARNING_COUNT"
-echo "ERROR        : $ERROR_COUNT"
-
-echo
-echo "Errors Found:"
-grep "ERROR" "$LOG_FILE"
-
-echo
-
-if [ "$ERROR_COUNT" -eq 0 ]
-then
-    echo "Status : Server Healthy"
-else
-    echo "Status : Server Needs Attention"
-fi
-
-echo
-echo "Report Generated Successfully."
+show_header
+show_date
+read_log_file
+count_info
+count_warning
+count_errors
+server_status
 } | tee report.txt

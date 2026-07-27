@@ -9,7 +9,7 @@ Welcome to my DevOps learning repository.
 - ✅ 02 - Linux File Management
 - ⏳ 03 - Linux Permissions
 - ⏳ 04 - Users & Groups
-- ⏳ 05 - Process Management
+- ⏳ 05 - Enhanced Linux-Log-Analyzer
 
 ### Git
 - Coming Soon
