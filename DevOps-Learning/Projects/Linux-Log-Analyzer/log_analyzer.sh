@@ -1,7 +1,17 @@
 #!/bin/bash
 
-LOG_FILE="server.log"
+LOG_FILE=$1
 
+if [ -z "$LOG_FILE"]
+then 
+     echo "Usage: ./analyze.sh <logfile>"
+     exit
+fi
+   if [ ! -f "$LOG_FILE" ]
+then
+    echo "File not found!"
+    exit 1
+fi
 show_header() {
     echo "========== SERVER REPORT =========="
     echo
@@ -12,18 +22,7 @@ show_date() {
     date
     echo
 }
-
-read_log_file() {
-    if [ ! -f "$LOG_FILE" ]
-    then
-        echo "Log file not found!"
-        exit 1
-    fi
-
-    TOTAL_LINES=$(wc -l < "$LOG_FILE")
-    echo "Total Lines : $TOTAL_LINES"
-    echo
-}
+ 
 
 count_info() {
     INFO_COUNT=$(grep -c "INFO" "$LOG_FILE")

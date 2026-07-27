@@ -1,12 +1,6 @@
-========== SERVER REPORT ==========
-
-Date & Time:
-Sat Jul 25 18:54:50 IST 2026
-
-Total Lines : 8
-INFO         : 5
-WARNING      : 1
-ERROR        : 3
+INFO : 5
+WARNING : 1
+ERROR : 3
 
 Errors Found:
 ERROR Database Connection Failed
@@ -14,5 +8,3 @@ ERROR Disk Full
 ERROR Authentication Failed
 
 Status : Server Needs Attention
-
-Report Generated Successfully.
