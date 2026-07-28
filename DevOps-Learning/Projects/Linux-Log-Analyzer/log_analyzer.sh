@@ -1,19 +1,7 @@
 #!/bin/bash
 
-LOG_FILE=$1
-
-if [ -z "$LOG_FILE"]
-then 
-     echo "Usage: ./analyze.sh <logfile>"
-     exit
-fi
-   if [ ! -f "$LOG_FILE" ]
-then
-    echo "File not found!"
-    exit 1
-fi
 show_header() {
-    echo "========== SERVER REPORT =========="
+    echo "========== Linux Log Analyzer =========="
     echo
 }
 
@@ -22,43 +10,46 @@ show_date() {
     date
     echo
 }
- 
 
-count_info() {
+analyze_log() {
+
+    LOG_FILE=$1
+
+    if [ ! -f "$LOG_FILE" ]
+    then
+        echo "$LOG_FILE not found!"
+        return
+    fi
+
     INFO_COUNT=$(grep -c "INFO" "$LOG_FILE")
-    echo "INFO : $INFO_COUNT"
-}
-
-count_warning() {
     WARNING_COUNT=$(grep -c "WARNING" "$LOG_FILE")
-    echo "WARNING : $WARNING_COUNT"
-}
-
-count_errors() {
     ERROR_COUNT=$(grep -c "ERROR" "$LOG_FILE")
-    echo "ERROR : $ERROR_COUNT"
 
-    echo
-    echo "Errors Found:"
-    grep "ERROR" "$LOG_FILE"
-    echo
-}
+    echo "-----------------------------------"
+    echo "Log File : $LOG_FILE"
+    echo "INFO     : $INFO_COUNT"
+    echo "WARNING  : $WARNING_COUNT"
+    echo "ERROR    : $ERROR_COUNT"
 
-server_status() {
     if [ "$ERROR_COUNT" -eq 0 ]
     then
-        echo "Status : Server Healthy"
+        echo "Status   : Server Healthy"
     else
-        echo "Status : Server Needs Attention"
+        echo "Status   : Server Needs Attention"
     fi
+
+    echo
 }
 
 {
 show_header
 show_date
-read_log_file
-count_info
-count_warning
-count_errors
-server_status
+
+for LOG_FILE in *.log
+do
+    analyze_log "$LOG_FILE"
+done
+
+echo "Report Generated Successfully."
+
 } | tee report.txt
