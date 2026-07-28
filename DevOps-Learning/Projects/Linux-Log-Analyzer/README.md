@@ -62,3 +62,22 @@ chmod +x log_analyzer.sh
 ```bash
 ./analyze.sh server.log
 ```
+
+## Version 5 - Multi-File Automation
+
+### New Features
+
+- Analyze every `.log` file automatically
+- Uses `for` loops
+- Generates a combined report
+- Displays server health for each log file
+
+- ##sample output
+- <img width="1920" height="1015" alt="Screenshot (422)" src="https://github.com/user-attachments/assets/7a599012-b236-498d-b021-551618dc5644" />
+
+
+
+
+
+
+
