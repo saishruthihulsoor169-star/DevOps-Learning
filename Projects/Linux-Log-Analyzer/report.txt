@@ -1,0 +1,27 @@
+========== Linux Log Analyzer ==========
+
+Date & Time:
+Tue Jul 28 19:28:31 IST 2026
+
+-----------------------------------
+Log File : database.log
+INFO     : 1
+WARNING  : 0
+ERROR    : 2
+Status   : Server Needs Attention
+
+-----------------------------------
+Log File : payment.log
+INFO     : 2
+WARNING  : 0
+ERROR    : 0
+Status   : Server Healthy
+
+-----------------------------------
+Log File : server.log
+INFO     : 5
+WARNING  : 1
+ERROR    : 3
+Status   : Server Needs Attention
+
+Report Generated Successfully.
